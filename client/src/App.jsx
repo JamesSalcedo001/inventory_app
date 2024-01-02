@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Route, Routes } from "react-router-dom";
 import './App.css'
 
 function App() {
@@ -12,7 +13,10 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Page Count: {count}</h1>
+        <Routes>
+          <Route path="/testing" element={<h1>test route</h1>} />
+          <Route path="/" element={<h1>Page Count: {count}</h1>} />
+        </Routes>  
     </div>
   )
 }
