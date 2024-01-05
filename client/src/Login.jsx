@@ -1,7 +1,65 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login, setErrors } from "./slices/userSlice";
+import { useNavigate } from "react-router-dom";
+
 function Login() {
+    const [formData, setFormData] = useState({
+        username: "",
+        password: ""
+    })
+
+    const errors = useSelector(state => state.user.errors)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { username, password } = formData
+
+    const submit = (e) => {
+        e.preventDefault()
+        const formDataObj = {
+            username,
+            password
+        }
+        fetch("/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formDataObj)
+        })
+        .then(res => res.json())
+        .then(user => {
+            if (!user.errors) {
+                dispatch(login(user))
+                navigate("/")
+            } else {
+                dispatch(setErrors(user.errors))
+                setTimeout(() => {
+                    dispatch(setErrors([]))
+                }, 2000)
+            }
+        })
+    }
+
+    const handleChange = (e) => {
+        const {name, value} = e.target
+        setFormData(formDataState => ({...formDataState, [name]:value}))
+    }
+
+
+
     return (
-        <div>
-            <h1>Login Component here</h1>
+        <div className="login-div">
+            <form id="login-form" onSubmit={submit}>
+                <label htmlFor="username">Username</label>
+                <input className="formInput" placeholder="username" type="text" name="username" autoComplete="username" onChange={handleChange} value={username} />
+
+                <label htmlFor="password">Password</label>
+                <input className="formInput" placeholder="password" type="password" name="password" autoComplete="current-password" onChange={handleChange} value={password} />
+                
+                <button className="formButton" type="submit"> Log In!</button>
+            </form>
+            {errors && <ul className="error">{errors.map((e, ind) => <li key={ind}>{e}</li>)}</ul>}
         </div>
     )
 }
