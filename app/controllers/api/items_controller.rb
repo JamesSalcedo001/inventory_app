@@ -15,6 +15,10 @@ module Api
             render json: Item.create!(item_params), status: :created
         end
 
+        def update
+            @item.update!(item_params)
+            render json: @item
+        end
 
 
         private 
