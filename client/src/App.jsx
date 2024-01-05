@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Route, Routes } from "react-router-dom";
-// import Header from './Header';
-// import Login from './Login';
-// import Signup from './Signup';
+import Header from './Header';
+import Login from './Login';
+import Signup from './Signup';
 import './App.css'
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header/>
         <Routes>
           <Route path="/testing" element={<h1>test route</h1>} />
           <Route path="/" element={<h1>Page Count: {count}</h1>} />
