@@ -43,10 +43,28 @@ function Signup() {
         })
     }
 
+    const handleChange = (e) => {
+        const {name, value} = e.target
+        setFormData(formDataState => ({...formDataState, [name]:value}))
+    }
+
+
 
     return (
-        <div>
-            <h1>Signup Component here</h1>
+        <div className="signup-div">
+            <form id="signup-form" onSubmit={submit}>
+                <label htmlFor="username">Username</label>
+                <input className="formInput" placeholder="username" type="text" name="username" autoComplete="username" onChange={handleChange} value={username} />
+
+                <label htmlFor="password">Password</label>
+                <input className="formInput" placeholder="password" type="password" name="password" autoComplete="current-password" onChange={handleChange} value={password} />
+
+                <label htmlFor="avatar">Avatar</label>
+                <input className="formInput" placeholder="avatar" type="text" name="avatar" autoComplete="avatar" onChange={handleChange} value={avatar} />
+                
+                <button className="formButton" type="submit"> Sign Up!</button>
+            </form>
+            {errors && <ul className="error">{errors.map((e, ind) => <li key={ind}>{e}</li>)}</ul>}
         </div>
     )
 }
