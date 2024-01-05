@@ -1,5 +1,5 @@
 class ShoppingListSerializer < ActiveModel::Serializer
   attributes :id, :required_quantity
-  has_one :group
-  has_one :item
+  belongs_to :group
+  belongs_to :item
 end
