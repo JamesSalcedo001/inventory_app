@@ -21,7 +21,11 @@ module Api
             end
         end
 
-        
+        def destroy
+            @current_user.destroy
+            session.delete :user_id
+            render json: { message: "user deleted" }, status: :ok
+        end
 
         private
 
