@@ -6,10 +6,10 @@ Rails.application.routes.draw do
     resources :items
     resources :groups
     resources :users
-  end
 
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
+    post "/login", to: "sessions#create"
+    delete "/logout", to: "sessions#destroy"
+  end
 
   get '*path',
       to: 'fallback#index',
