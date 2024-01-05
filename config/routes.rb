@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :inventories
     resources :items
     resources :groups
-    resources :users
+    resources :users, only: [:update, :destroy]
 
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
