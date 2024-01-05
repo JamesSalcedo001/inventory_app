@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
-  resources :shopping_lists
-  resources :inventories
-  resources :items
-  resources :groups
-  resources :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  get '/api/hello', to: 'application#hello_world'
-  # Defines the root path route ("/")
-  # root "articles#index"
+  
+  namespace :api do
+    resources :shopping_lists
+    resources :inventories
+    resources :items
+    resources :groups
+    resources :users
+  end
 
   get '*path',
       to: 'fallback#index',
