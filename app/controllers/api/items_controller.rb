@@ -20,6 +20,10 @@ module Api
             render json: @item
         end
 
+        def destroy
+            @item.destroy
+            head :no_content
+        end
 
         private 
 
