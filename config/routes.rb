@@ -4,13 +4,13 @@ Rails.application.routes.draw do
     
     resources :users, only: [:update, :destroy] do
       collection do
-        get "me", to: "users#me"
+        get "/me", to: "users#me"
       end
     end
 
-    post "login", to: "sessions#create"
-    delete "logout", to: "sessions#destroy"
-    post "signup", to: "users#create"
+    post "/login", to: "sessions#create"
+    delete "/logout", to: "sessions#destroy"
+    post "/signup", to: "users#create"
 
     resources :items
 
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   
   end
-  
+
   get '*path',
       to: 'fallback#index',
       constraints: ->(req) { !req.xhr? && req.format.html? }

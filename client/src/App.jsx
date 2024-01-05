@@ -1,10 +1,26 @@
 import { Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "./slices/userSlice";
 import Header from './Header';
 import Login from './Login';
 import Signup from './Signup';
 import './App.css'
+import { useEffect } from "react";
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    fetch("/api/users/me")
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.username) {
+        dispatch(login(data))
+      } else {
+        console.log(data.errors)
+      }
+    })
+  },[dispatch])
 
   return (
     <div className="App">
@@ -12,7 +28,7 @@ function App() {
         <Routes>
           <Route path="/log_in" element={<Login/>} />
           <Route path="/sign_up" element={<Signup/>} />
-          <Route path="/" element={<h1>Hello</h1>} />
+          <Route path="/" element={<h1>Home</h1>} />
         </Routes>  
     </div>
   )
