@@ -11,6 +11,15 @@ module Api
             render json: @inventory
         end
 
+        def create
+            render json: @group.inventories.create!(inventory_params), status: :created
+        end
+
+        def update
+            @inventory.update!(inventory_params)
+        end
+
+        
 
         private
 
