@@ -19,7 +19,10 @@ module Api
             @inventory.update!(inventory_params)
         end
 
-        
+        def destroy
+            @inventory.destroy
+            head :no_content
+        end
 
         private
 
