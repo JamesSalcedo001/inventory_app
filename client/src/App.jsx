@@ -1,15 +1,20 @@
+import './App.css'
+
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { login } from "./slices/userSlice";
+
 import Header from './Header';
+import Home from "./Home";
 import Login from './Login';
 import Signup from './Signup';
-import './App.css'
-import { useEffect } from "react";
 import InventoryList from "./InventoryList";
+
 
 function App() {
   const dispatch = useDispatch()
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn)
 
   useEffect(() => {
     fetch("/api/users/me")
@@ -27,10 +32,10 @@ function App() {
     <div className="App">
       <Header/>
         <Routes>
-          <Route path="/inventory_list" element={<InventoryList />} />
+          {isLoggedIn ? <Route path="/inventory_list" element={<InventoryList />} /> : null}
           <Route path="/log_in" element={<Login/>} />
           <Route path="/sign_up" element={<Signup/>} />
-          <Route path="/" element={<h1>Home</h1>} />
+          <Route path="/" element={<Home isLoggedIn={isLoggedIn}/>} />
         </Routes>  
     </div>
   )
