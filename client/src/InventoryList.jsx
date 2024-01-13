@@ -1,49 +1,31 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { fetchInventory, updateInventoryItem, deleteInventoryItem } from "./slices/inventorySlice";
 
 import InventoryItem from "./InventoryItem";
 
+
 function InventoryList() {
-    const [inventoryItems, setInventoryItems] = useState([])
+    const dispatch = useDispatch()
+    const inventoryItems = useSelector(state => state.inventory.items)
 
     useEffect(() => {
-        fetch("/api/inventory")
-        .then(res => res.json())
-        .then(data => setInventoryItems(data))
-    }, [])
+        dispatch(fetchInventory())
+    }, [dispatch])
 
-    const updateItemQuantity = (itemId, newQuantity) => {
-        fetch(`/api/inventory/${itemId}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ quantity: newQuantity })
-        })
-        .then(res => res.json())
-        .then(updatedItem => {
-            setInventoryItems(prevItems => prevItems.map(item => item.id === itemId ? updatedItem : item ))
-        })
-    }
 
     const handleIncrement = (itemId, currentQuantity) => {
-        updateItemQuantity(itemId, currentQuantity + 1)
+        dispatch(updateInventoryItem({ itemId, newQuantity: currentQuantity + 1}))    
     }
 
     const handleDecrement = (itemId, currentQuantity) => {
         if (currentQuantity > 0) {
-            updateItemQuantity(itemId, currentQuantity - 1)
+            dispatch(updateInventoryItem({ itemId, newQuantity: currentQuantity - 1}))
         }
     }
 
     const handleDeleteItem = (itemId) => {
-        fetch(`/api/inventory/${itemId}`, {
-            method: "DELETE",
-        })
-        .then(() => {
-            setInventoryItems(prevItems => prevItems.filter(item => item.id !== itemId ))
-        })
+        dispatch(deleteInventoryItem(itemId))
     }
 
 
