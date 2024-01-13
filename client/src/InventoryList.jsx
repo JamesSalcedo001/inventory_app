@@ -11,18 +11,28 @@ function InventoryList() {
         .then(data => setInventoryItems(data))
     }, [])
 
-    const handleUpdateItem = (itemId, updatedData) => {
+    const updateItemQuantity = (itemId, newQuantity) => {
         fetch(`/api/inventory/${itemId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(updatedData)
+            body: JSON.stringify({ quantity: newQuantity })
         })
         .then(res => res.json())
         .then(updatedItem => {
             setInventoryItems(prevItems => prevItems.map(item => item.id === itemId ? updatedItem : item ))
         })
+    }
+
+    const handleIncrement = (itemId, currentQuantity) => {
+        updateItemQuantity(itemId, currentQuantity + 1)
+    }
+
+    const handleDecrement = (itemId, currentQuantity) => {
+        if (currentQuantity > 0) {
+            updateItemQuantity(itemId, currentQuantity - 1)
+        }
     }
 
     const handleDeleteItem = (itemId) => {
@@ -42,7 +52,8 @@ function InventoryList() {
                 <InventoryItem
                     key={item.id}
                     item={item}
-                    onUpdate={handleUpdateItem}
+                    onIncrement={handleIncrement}
+                    onDecrement={handleDecrement}
                     onDelete={handleDeleteItem}
                 />
             ))}
