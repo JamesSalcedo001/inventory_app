@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "./slices/userSlice";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 function Header() {
@@ -34,15 +34,7 @@ function Header() {
                 </div> 
                 ) : (
                     <div className="header-div-logged-out">
-                        <h1 id="header-message">Log In Please!</h1>
-                        <div id="login-links">
-                            <NavLink to="/log_in">
-                                <button className="login-signup">Log In! </button>
-                            </NavLink>
-                            <NavLink to="/sign_up">
-                                <button className="login-signup">Sign Up! </button>
-                            </NavLink>
-                        </div>
+                        <h1 id="header-message">Header</h1>
                     </div>
             )}
         </div>

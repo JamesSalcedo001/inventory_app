@@ -40,17 +40,18 @@ const inventorySlice = createSlice({
     initialState: {
         items: [],
     },
-    extraReducers: {
-        [fetchInventory.fulfilled]: (state, action) => {
-            state.items = action.payload;
-        },
-        [updateInventoryItem.fulfilled]: (state, action) => {
-            const index = state.items.findIndex(item => item.id === action.payload.id)
-            if (index !== -1) state.items[index] = action.payload
-        },
-        [deleteInventoryItem.fulfilled]: (state, action) => {
-            state.items = state.items.filter(item => item.id !== action.payload)
-        },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchInventory.fulfilled, (state, action) => {
+                state.items = action.payload
+            })
+            .addCase(updateInventoryItem.fulfilled, (state, action) => {
+                const index = state.items.findIndex(item => item.id === action.payload.id)
+                if (index !== -1) state.items[index] = action.payload
+            })
+            .addCase(deleteInventoryItem.fulfilled, (state, action) => {
+                state.items = state.items.filter(item => item.id !== action.payload)
+            })
     },
 })
 

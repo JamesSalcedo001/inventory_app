@@ -7,7 +7,7 @@ import InventoryItem from "./InventoryItem";
 
 function InventoryList() {
     const dispatch = useDispatch()
-    const inventoryItems = useSelector(state => state.inventory.items)
+    const inventoryItems = useSelector(state => state.inventory.items) || []
 
     useEffect(() => {
         dispatch(fetchInventory())

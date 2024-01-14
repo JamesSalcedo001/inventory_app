@@ -7,8 +7,8 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-# user1 = User.create(username: "John Doe", password_digest: "password1", avatar: "jpeg")
-# user2 = User.create(username: "Jane Doe", password_digest: "password2", avatar: "jpeg2")
+# user1 = User.create(username: "JamesSalcedo001", password: "test", avatar: "https://editors.dexerto.com/wp-content/uploads/2023/11/01/pokemon-go-player-encounters-all-151-shiny-pokemon-1.jpg")
+# user2 = User.create(username: "Jane Doe", password: "password2", avatar: "https://i.redd.it/7xvjkeu6jocz.gif")
 
 # group1 = Group.create(name: "Doe Family")
 # group2 = Group.create(name: "Smith Family")

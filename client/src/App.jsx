@@ -14,7 +14,7 @@ import InventoryList from "./InventoryList";
 
 function App() {
   const dispatch = useDispatch()
-  const isLoggedIn = useSelector(state => state.user.isLoggedIn)
+  const isLoggedIn = useSelector(state => state.user.loggedIn)
 
   useEffect(() => {
     fetch("/api/users/me")
@@ -35,7 +35,7 @@ function App() {
           {isLoggedIn ? <Route path="/inventory_list" element={<InventoryList />} /> : null}
           <Route path="/log_in" element={<Login/>} />
           <Route path="/sign_up" element={<Signup/>} />
-          <Route path="/" element={<Home isLoggedIn={isLoggedIn}/>} />
+          <Route path="/" element={<Home />} />
         </Routes>  
     </div>
   )
